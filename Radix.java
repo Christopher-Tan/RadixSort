@@ -1,9 +1,4 @@
 public class Radix {
-    private static void clear(SortableLinkedList n) {
-        while (n.size() > 0) {
-            n.remove(0);
-        }
-    }
     public static int nth(int n, int col) {
         int m = Math.abs(n);
         return (int) Math.floor(m / Math.pow(10,(col))) - 10 * (int) Math.floor(m / Math.pow(10,(col + 1)));
@@ -35,10 +30,10 @@ public class Radix {
         }
 
         for (int i = 0; i < max_length; i++) {
-            for (int j = 0; j < data.size(); j++) {
-                buckets[nth(data.get(j),i)].add(data.get(j));
+            while (data.size() > 0) {
+                int value = data.remove(0);
+                buckets[nth(value,i)].add(value);
             }
-            clear(data);
             merge(data,buckets);
         }
     }
@@ -48,14 +43,14 @@ public class Radix {
         for (int i = 0; i < 2; i++) {
             buckets[i] = new SortableLinkedList();
         }
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i) < 0) {
-                buckets[0].add(0,data.get(i));
+        while (data.size() > 0) {
+            int value = data.remove(0);
+            if (value < 0) {
+                buckets[0].add(0,value);
             } else {
-                buckets[1].add(data.get(i));
+                buckets[1].add(value);
             }
         }
-        clear(data);
         merge(data,buckets);
     }
 }

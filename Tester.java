@@ -46,5 +46,12 @@ public class Tester {
         }
         Radix.radixSortSimple(tester);
         System.out.println(tester);
+        tester = new SortableLinkedList();
+        int[] r = {143312,34324,-442,32,4,4143215,-345315431,11,-324567,232342,-874325,501234,-773213,585432,-863163};
+        for (int i = 0; i < r.length; i++) {
+            tester.add(r[i]);
+        }
+        Radix.radixSort(tester);
+        System.out.println(tester);
     }
 }

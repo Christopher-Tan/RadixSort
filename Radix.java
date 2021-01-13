@@ -1,7 +1,7 @@
 public class Radix {
     public static int nth(int n, int col) {
         int m = Math.abs(n);
-        return (int) Math.floor(m / Math.pow(10,(col))) - 10 * (int) Math.floor(m / Math.pow(10,(col + 1)));
+        return (int) Math.floor(m / Math.pow(10,(col))) % 10;
     }
     public static int length(int n) {
         int m = Math.abs(n);
@@ -17,13 +17,15 @@ public class Radix {
     }
     public static void radixSortSimple(SortableLinkedList data) {
         int max_length = 0;
-        for (int i = 0; i < data.size(); i++) {
-            int temp_length = length(data.get(i));
-            if (temp_length > max_length) {
-                max_length = temp_length;
+        SortableLinkedList temp = new SortableLinkedList();
+        while (data.size() > 0) {
+            int value = data.remove(0);
+            if (length(value) > max_length) {
+                max_length = length(value);
             }
+            temp.add(value);
         }
-
+        data.extend(temp);
         SortableLinkedList[] buckets = new SortableLinkedList[10];
         for (int i = 0; i < 10; i++) {
             buckets[i] = new SortableLinkedList();

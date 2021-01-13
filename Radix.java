@@ -15,4 +15,31 @@ public class Radix {
             original.extend(buckets[i]);
         }
     }
+    public static void radixSortSimple(SortableLinkedList data) {
+        int max_length = 0;
+        for (int i = 0; i < data.size(); i++) {
+            int temp_length = length(data.get(i));
+            if (temp_length > max_length) {
+                max_length = temp_length;
+            }
+        }
+
+        SortableLinkedList[] buckets = new SortableLinkedList[10];
+        for (int i = 0; i < 10; i++) {
+            buckets[i] = new SortableLinkedList();
+        }
+
+        for (int i = 0; i < max_length; i++) {
+            for (int j = 0; j < data.size(); j++) {
+                buckets[nth(data.get(j),i)].add(data.get(j));
+            }
+            clear(data);
+            merge(data,buckets);
+        }
+    }
+    private static void clear(SortableLinkedList n) {
+        while (n.size() > 0) {
+            n.remove(0);
+        }
+    }
 }

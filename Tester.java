@@ -1,3 +1,5 @@
+import java.util.Random;
+import java.util.Arrays;
 public class Tester {
     public static void main(String[] args) {
         System.out.println("\nnth");
@@ -14,5 +16,20 @@ public class Tester {
         System.out.println(Radix.length(15));
         System.out.println(Radix.length(-10));
         System.out.println(Radix.length(5112));
+        System.out.println("\nmerge");
+        SortableLinkedList original = new SortableLinkedList();
+        SortableLinkedList[] buckets = new SortableLinkedList[5];
+        for (int i = 0; i < buckets.length; i++) {
+            Random creator = new Random();
+            SortableLinkedList temp = new SortableLinkedList();
+            for (int j = 0; j < creator.nextInt(10); j++) {
+                temp.add(creator.nextInt());
+            }
+            buckets[i] = temp;
+            System.out.println(temp);
+        }
+        Radix.merge(original,buckets);
+        System.out.println(original);
+        System.out.println(Arrays.toString(buckets));
     }
 }
